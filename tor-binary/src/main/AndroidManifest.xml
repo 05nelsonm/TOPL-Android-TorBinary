@@ -1,5 +1,2 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="io.matthewnelson.tor_binary">
-
-    /
-</manifest>
+    package="io.matthewnelson.tor_binary" />
