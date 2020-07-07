@@ -166,12 +166,12 @@ case "$1" in
     fi
 
     if ! build; then
-      git add --all
-      git stash
-      git stash drop
-      git checkout "$CURRENT_BRANCH"
-      ./tor-droid-make.sh fetch
-      git branch -D "$LATEST_BRANCH"
+#      git add --all
+#      git stash
+#      git stash drop
+#      git checkout "$CURRENT_BRANCH"
+#      ./tor-droid-make.sh fetch
+#      git branch -D "$LATEST_BRANCH"
       EXIT_ARG=1
     fi
     ;;
