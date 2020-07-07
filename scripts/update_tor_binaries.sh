@@ -69,10 +69,10 @@ is_newer_binary_available() {
 build() {
   git checkout "$LATEST_BRANCH" && git pull
 
-  rm -rf tor-android-binary/src/main/libs/*
-  echo "tor-android Library binaries deleted"
-  echo ""
-  echo "re-building"
+#  rm -rf tor-android-binary/src/main/libs/*
+#  echo "tor-android Library binaries deleted"
+#  echo ""
+#  echo "re-building"
 
   if ! ./tor-droid-make.sh fetch; then
     echo "Unable to fetch submodules for tor-android"
