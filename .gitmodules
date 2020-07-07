@@ -1,0 +1,3 @@
+[submodule "external/tor-android"]
+	path = external/tor-android
+	url = https://github.com/guardianproject/tor-android.git
