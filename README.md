@@ -2,7 +2,9 @@
 Tor Binary build for Android
 
 Installs the Tor executable file in your Android Application's
-native library directory (`/data/app/...`) with the file name `libTor.so`.
+native library directory (`/data/app/...`) with the file name `libTor.so`.  
+
+Used primarily for the <a href="https://topl-android.matthewnelson.io/" target="_blank">TorOnionProxyLibrary-Android</a> project.
 
 ## Implementation
 
