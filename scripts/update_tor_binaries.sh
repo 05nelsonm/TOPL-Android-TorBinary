@@ -139,6 +139,10 @@ display_help_message() {
   echo "                                                        2nd argument. Requires that you have setup on your"
   echo "                                                        server something like msmpt."
   echo ""
+  echo "    Options:"
+  echo ""
+  echo "        --force                                         Will force a build when used as a 2nd argument"
+  echo ""
 }
 
 EXIT_ARG=0
@@ -151,7 +155,9 @@ case "$1" in
       newer_binaries_available_msg
     else
       binaries_are_up_to_date_msg
-      exit 0
+      if [ "$2" != "--force" ]; then
+        exit 0
+      fi
     fi
 
     if ! build; then
