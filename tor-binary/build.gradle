@@ -33,6 +33,11 @@ task buildTorBinaries(type: Exec) {
     commandLine 'scripts/update_tor_binaries.sh', 'build'
 }
 
+task forceBuildTorBinaries(type: Exec) {
+    workingDir "$rootDir"
+    commandLine 'scripts/update_tor_binaries.sh', 'build', '--force'
+}
+
 task copyTorBinaries(type: Copy, dependsOn: buildTorBinaries) {
     from("$rootDir/external/tor-android/tor-android-binary/src/main/libs")
     into("src/main/jniLibs")
