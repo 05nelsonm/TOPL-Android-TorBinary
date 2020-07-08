@@ -92,7 +92,7 @@ git push
 
 - Wait for the release to become available on <a href="https://repo1.maven.org/maven2/io/matthewnelson/topl-android/" target="_blank">Maven Central</a>, then:
     - Go to the <a href="https://github.com/05nelsonm/TOPL-Android-TorBinary/releases/new" target="_blank">Draft a new release</a> page,
-      enter the release name ({{ topl_android.next_release }}) as tag and title, and have the description
+      enter the release name (<TOR_VERSION>) as tag and title, and have the description
       point to the changelog. You can find the direct anchor URL from the
       <a href="https://topl-android.matthewnelson.io/changelog/" target="_blank">Change Log</a>
       page on the doc site.

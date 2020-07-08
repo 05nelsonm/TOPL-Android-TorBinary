@@ -10,7 +10,7 @@ Used primarily for the <a href="https://topl-android.matthewnelson.io/" target="
 
 - In your Application module's `build.gradle` file, add the following to the `dependencies` block:
 ```groovy
-implementation "io.matthewnelson.topl-android:tor-binary:0.4.3.5"
+implementation "io.matthewnelson.topl-android:tor-binary:0.4.3.5a"
 ```
 
 - Celebrate, nothing more is needed.
