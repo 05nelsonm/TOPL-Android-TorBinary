@@ -22,6 +22,8 @@ VERSION_NAME=<TOR_VERSION>
 
 - Update Version in README.md
 
+- Update CHANGELOG.md
+
 - Take one last look
 ```
 git diff
