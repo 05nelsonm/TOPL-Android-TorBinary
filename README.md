@@ -9,16 +9,20 @@ Used primarily for the <a href="https://topl-android.matthewnelson.io/" target="
 This is a temporary work-around while I build a gradle plugin to more easily distribute binaries.
 ## Implementation
 
-- Clone this repo
-- Copy the `tor-binary` module's `src/main/jniLibs` directory to your application module's 
-`src/main/` directory.
-
-<!-- - In your Application module's `build.gradle` file, add the following to the `dependencies` block:
+- In your Application module's `build.gradle` file, add the following to the `dependencies` block:
 ```groovy
 implementation "io.matthewnelson.topl-android:tor-binary:0.4.3.5a"
 ```
 
-- Celebrate, nothing more is needed. -->
+- In your Application module's `build.gradle` file, add the following to the `android` block:
+```groovy
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+```
+
+- Celebrate, nothing more is needed.
 
 ## More Info  
 
