@@ -42,6 +42,14 @@ task copyTorBinaries(type: Copy, dependsOn: buildTorBinaries) {
     }
 }
 
+task copyTorBinariesNoBuild(type: Copy) {
+    from("$rootDir/external/tor-android/tor-android-binary/src/main/libs")
+    into("src/main/jniLibs")
+    rename { filename ->
+        filename.replace "$filename", 'libTor.so'
+    }
+}
+
 task updateTorBinaries(type: Exec, dependsOn: copyTorBinaries) {
     workingDir "$rootDir"
     commandLine 'scripts/update_tor_binaries.sh', 'update_versions_file'
