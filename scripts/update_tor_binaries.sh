@@ -28,11 +28,11 @@ LATEST_BRANCH_VERSION_NUM=
 
 update_latest_branch() {
   LATEST_BRANCH="$1"
-  LATEST_BRANCH_VERSION_NUM=$( echo "$1" | cut -d '-' -f 5  | head -c 7 | sed "s/[\.]//g" )
+  LATEST_BRANCH_VERSION_NUM=$( echo "$1" | cut -d '-' -f 6  | head -c 7 | sed "s/[\.]//g" )
 }
 
 is_branch_newer() {
-  local BRANCH_VERSION=$( echo "$1" | cut -d '-' -f 5  | head -c 7 | sed "s/[\.]//g" )
+  local BRANCH_VERSION=$( echo "$1" | cut -d '-' -f 6  | head -c 7 | sed "s/[\.]//g" )
 
   if [ "$BRANCH_VERSION" -gt "$LATEST_BRANCH_VERSION_NUM" ]; then
     return 0
@@ -43,9 +43,9 @@ is_branch_newer() {
 is_newer_binary_available() {
   local BRANCHES=
   local BRANCH=
-  mapfile -t BRANCHES < <( git branch -a | grep "remotes/origin/tor-android-binary-tor-" | cut -d '/' -f 3)
+  mapfile -t BRANCHES < <( git branch -a | grep "remotes/origin/dev-tor-android-binary-tor-" | cut -d '/' -f 3)
 
-  if echo "$CURRENT_BRANCH" | grep "tor-android-binary-tor-" > /dev/null 2>&1; then
+  if echo "$CURRENT_BRANCH" | grep "dev-tor-android-binary-tor-" > /dev/null 2>&1; then
     update_latest_branch "$CURRENT_BRANCH"
   else
     update_latest_branch ${BRANCHES[0]}
