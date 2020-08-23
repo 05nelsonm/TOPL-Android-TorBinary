@@ -11,7 +11,7 @@ This is a temporary work-around while I build a gradle plugin to more easily dis
 
 - In your Application module's `build.gradle` file, add the following to the `dependencies` block:
 ```groovy
-implementation "io.matthewnelson.topl-android:tor-binary:0.4.3.5a"
+implementation "io.matthewnelson.topl-android:tor-binary:0.4.3.6"
 ```
 
 - In your Application module's `build.gradle` file, add the following to the `android` block:
