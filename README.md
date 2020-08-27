@@ -22,6 +22,12 @@ implementation "io.matthewnelson.topl-android:tor-binary:0.4.3.6"
     }
 ```
 
+- If your application's `minSdkVersion` is 23 or greater, add to the `AndroidManifest.xml`, within 
+the `application` tag:
+```
+android:extractNativeLibs="true"
+```
+
 - Celebrate, nothing more is needed.
 
 ## More Info  
