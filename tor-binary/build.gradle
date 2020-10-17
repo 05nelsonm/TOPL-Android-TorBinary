@@ -25,8 +25,14 @@ android {
     }
 }
 
-task copyTorBinaries(type: Copy) {
+task deleteJniLibs(type: Delete) {
+    delete "$rootDir/tor-binary/src/main/jniLibs/"
+}
+
+task copyTorBinaries(type: Copy, dependsOn: deleteJniLibs) {
     from("$rootDir/external/tor-android/tor-android-binary/src/main/libs") {
+        // have to exclude the old binaries that were not deleted from the directory
+        // when they modified the build script.
         exclude 'arm64-v8a'
         exclude 'armeabi-v7a'
     }
@@ -41,6 +47,16 @@ task verifyChecksums(type: Exec, dependsOn: copyTorBinaries) {
     commandLine "scripts/verify_checksums.sh"
 }
 
+task moveBinariesToProperLocation(dependsOn: verifyChecksums) {
+    doLast {
+        String jniDir = "$rootDir/tor-binary/src/main/jniLibs/"
+        ant.move(file: "$jniDir/arm64/libTor.so", todir: "$jniDir/arm64-v8a/")
+        ant.move(file: "$jniDir/armeabi/libTor.so", todir: "$jniDir/armeabi-v7a/")
+        delete("$jniDir/arm64")
+        delete("$jniDir/armeabi")
+    }
+}
+
 gradle.projectsEvaluated {
-    preBuild.dependsOn(verifyChecksums)
+    preBuild.dependsOn(moveBinariesToProperLocation)
 }
