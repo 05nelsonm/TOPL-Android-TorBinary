@@ -11,7 +11,7 @@ android {
         versionCode VERSION_CODE.toInteger()
         versionName VERSION_NAME
         buildConfigField 'int', 'TOR_BINARY_VERSION_CODE', "$versionCode"
-        buildConfigField 'String', 'TOR_BINARY_VERSION_NAME', "$versionName"
+        buildConfigField 'String', 'TOR_BINARY_VERSION_NAME', "\"$versionName\""
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -26,9 +26,21 @@ android {
 }
 
 task copyTorBinaries(type: Copy) {
-    from("$rootDir/external/tor-android/tor-android-binary/src/main/libs")
+    from("$rootDir/external/tor-android/tor-android-binary/src/main/libs") {
+        exclude 'arm64-v8a'
+        exclude 'armeabi-v7a'
+    }
     into("src/main/jniLibs")
     rename { filename ->
         filename.replace "$filename", 'libTor.so'
     }
+}
+
+task verifyChecksums(type: Exec, dependsOn: copyTorBinaries) {
+    workingDir "$rootDir"
+    commandLine "./verify_checksums.sh"
+}
+
+gradle.projectsEvaluated {
+    preBuild.dependsOn(verifyChecksums)
 }
