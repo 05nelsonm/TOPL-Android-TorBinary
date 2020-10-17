@@ -2,14 +2,16 @@ apply plugin: 'com.android.library'
 apply from: rootProject.file('gradle/maven-publish.gradle')
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
     buildToolsVersion "29.0.3"
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode VERSION_CODE.toInteger()
         versionName VERSION_NAME
+        buildConfigField 'int', 'TOR_BINARY_VERSION_CODE', "$versionCode"
+        buildConfigField 'String', 'TOR_BINARY_VERSION_NAME', "$versionName"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -17,7 +19,6 @@ android {
 
     buildTypes {
         release {
-            resValue "string", "tor_binary_version", VERSION_NAME
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
