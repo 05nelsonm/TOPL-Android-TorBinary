@@ -42,6 +42,8 @@ task copyTorBinaries(type: Copy, dependsOn: deleteJniLibs) {
     }
 }
 
+// Must verify the checksums prior to moving them because tor-android-binary
+// builds them as arm64 instead of arm64-v8a, and armeabi instead of armeabi-v7a
 task verifyChecksums(type: Exec, dependsOn: copyTorBinaries) {
     workingDir "$rootDir"
     commandLine "scripts/verify_checksums.sh"
