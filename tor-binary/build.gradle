@@ -2,14 +2,16 @@ apply plugin: 'com.android.library'
 apply from: rootProject.file('gradle/maven-publish.gradle')
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
     buildToolsVersion "29.0.3"
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode VERSION_CODE.toInteger()
         versionName VERSION_NAME
+        buildConfigField 'int', 'TOR_BINARY_VERSION_CODE', "$versionCode"
+        buildConfigField 'String', 'TOR_BINARY_VERSION_NAME', "\"$versionName\""
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -17,49 +19,46 @@ android {
 
     buildTypes {
         release {
-            resValue "string", "tor_binary_version", VERSION_NAME
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 }
 
-task buildTorBinaries(type: Exec) {
-    workingDir "$rootDir"
-    commandLine 'scripts/update_tor_binaries.sh', 'build'
+task deleteJniLibs(type: Delete) {
+    delete "$rootDir/tor-binary/src/main/jniLibs/"
 }
 
-task forceBuildTorBinaries(type: Exec) {
-    workingDir "$rootDir"
-    commandLine 'scripts/update_tor_binaries.sh', 'build', '--force'
-}
-
-task copyTorBinaries(type: Copy, dependsOn: buildTorBinaries) {
-    from("$rootDir/external/tor-android/tor-android-binary/src/main/libs")
+task copyTorBinaries(type: Copy, dependsOn: deleteJniLibs) {
+    from("$rootDir/external/tor-android/tor-android-binary/src/main/libs") {
+        // have to exclude the old binaries that were not deleted from the directory
+        // when they modified the build script.
+        exclude 'arm64-v8a'
+        exclude 'armeabi-v7a'
+    }
     into("src/main/jniLibs")
     rename { filename ->
         filename.replace "$filename", 'libTor.so'
     }
 }
 
-task copyTorBinariesNoBuild(type: Copy) {
-    from("$rootDir/external/tor-android/tor-android-binary/src/main/libs")
-    into("src/main/jniLibs")
-    rename { filename ->
-        filename.replace "$filename", 'libTor.so'
+// Must verify the checksums prior to moving them because tor-android-binary
+// builds them as arm64 instead of arm64-v8a, and armeabi instead of armeabi-v7a
+task verifyChecksums(type: Exec, dependsOn: copyTorBinaries) {
+    workingDir "$rootDir"
+    commandLine "scripts/verify_checksums.sh"
+}
+
+task moveBinariesToProperLocation(dependsOn: verifyChecksums) {
+    doLast {
+        String jniDir = "$rootDir/tor-binary/src/main/jniLibs/"
+        ant.move(file: "$jniDir/arm64/libTor.so", todir: "$jniDir/arm64-v8a/")
+        ant.move(file: "$jniDir/armeabi/libTor.so", todir: "$jniDir/armeabi-v7a/")
+        delete("$jniDir/arm64")
+        delete("$jniDir/armeabi")
     }
-}
-
-task updateTorBinaries(type: Exec, dependsOn: copyTorBinaries) {
-    workingDir "$rootDir"
-    commandLine 'scripts/update_tor_binaries.sh', 'update_versions_file'
-}
-
-task checkForTorBinaryUpdate(type: Exec) {
-    workingDir "$rootDir"
-    commandLine 'scripts/update_tor_binaries.sh', 'check_for_update'
 }
 
 gradle.projectsEvaluated {
-    preBuild.dependsOn(checkForTorBinaryUpdate)
+    preBuild.dependsOn(moveBinariesToProperLocation)
 }

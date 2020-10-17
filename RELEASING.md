@@ -10,11 +10,6 @@ git pull
 git checkout -b release_<TOR_VERSION>
 ```
 
-- Build Tor binaries & copy them to tor-binary/src/main/jniLibs/ directory
-```
-./gradlew tor-binary:updateTorBinaries
-```
-
 - Update `VERSION_NAME` (remove `-SNAPSHOT`) in `tor-binary/gradle.properties`
 ```gradle
 VERSION_NAME=<TOR_VERSION>
@@ -24,6 +19,12 @@ VERSION_NAME=<TOR_VERSION>
 
 - Update CHANGELOG.md
 
+- Perform a clean build
+```
+./gradlew clean
+./gradlew build
+```
+
 - Take one last look
 ```
 git diff
@@ -32,12 +33,6 @@ git diff
 - Commit all local changes and PGP sign
 ```
 git commit -S -am "Prepare <TOR_VERSION> release"
-```
-
-- Perform a clean build
-```
-./gradlew clean
-./gradlew build
 ```
 
 - Create a PGP signed tag, and push it
