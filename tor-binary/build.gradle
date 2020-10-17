@@ -38,7 +38,7 @@ task copyTorBinaries(type: Copy) {
 
 task verifyChecksums(type: Exec, dependsOn: copyTorBinaries) {
     workingDir "$rootDir"
-    commandLine "./verify_checksums.sh"
+    commandLine "scripts/verify_checksums.sh"
 }
 
 gradle.projectsEvaluated {
