@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 0.4.5.4 (2021-01-28)
+ - Adds reproducably built work flow using The Tor Project's tor-browser-build 
+ and removes direct reliance on Guardian Project's tor-android project.
+ - Bumps Gradle, AndroidGradle plugin, and Gradle Maven Publish versions
+ - Tor Binaries for v0.4.5.4-rc
+
 ## Version 0.4.4.0 (2020-10-17)
  - Adds to BuildConfig the following values
      + `TOR_BINARY_VERSION_CODE`

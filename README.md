@@ -10,7 +10,7 @@ Used primarily for the <a href="https://topl-android.matthewnelson.io/" target="
 
 - In your Application module's `build.gradle` file, add the following to the `dependencies` block:
 ```groovy
-implementation "io.matthewnelson.topl-android:tor-binary:0.4.4.0"
+implementation "io.matthewnelson.topl-android:tor-binary:0.4.5.4"
 ```
 
 - In your Application module's `build.gradle` file, add the following to the `android` block:
@@ -38,12 +38,11 @@ val torExecutable = File(context.applicationInfo.nativeLibraryDir, "libTor.so")
 
 ## Where do the binaries come from?  
 
-Binaries are copied from The GuardianProject's <a href="https://github.com/guardianproject/tor-android" target="_blank">tor-android</a>
-project and renamed to libTor.so, then moved to properly named directories for the respective ABI output. No unnecessary classes are included, only the binaries.  
+Binaries are reproducably built from The Tor Project's <a href="https://gitweb.torproject.org/builders/tor-browser-build.git/" target="_blank">tor-browser-build</a>.
 
-See <a href="https://github.com/guardianproject/tor-android/issues/28#issuecomment-661845483" target="_blank">here</a> for more information on why.
+See <a href="https://github.com/05nelsonm/TOPL-Android-TorBinary/blob/master/scripts/build_binaries.sh" target="_blank">here</a> for more information.
 
-## Checksum Verification of binaries
+## Building Yourself
 
 Clone the repo and initialize submodules:
 ```
@@ -52,12 +51,23 @@ cd TOPL-Android-TorBinary/
 git submodule update --init
 ```
 
-Verify the sha256sum of all binaries simply by running:
+Install dependencies
 ```
-./gradlew build
+# See tor-browser-build's README for needed dependencies and install them
+cd external/tor-browser-build
+nano README
 ```
 
-And then verifying that no changes were made to the binaries in master branch by running:
+Initialize tor-browser-build's rbm submodule
 ```
-git status
+make submodule-update
+
+# Change directories back to root project location
+cd ../..
+```
+
+Run the build script
+```
+# From project's root directory
+scripts/build_binaries.sh
 ```

@@ -1,4 +1,4 @@
-[submodule "external/tor-android"]
-	path = external/tor-android
-	url = https://github.com/guardianproject/tor-android.git
-	ignore = all
+[submodule "external/tor-browser-build"]
+	path = external/tor-browser-build
+	url = https://git.torproject.org/builders/tor-browser-build.git
+	branch = master
