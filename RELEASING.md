@@ -10,6 +10,14 @@ git pull
 git checkout -b release_<TOR_VERSION>
 ```
 
+- Build Binaries
+```
+cd external/tor-browser-build
+git pull
+cd ../..
+scripts/build_binaries.sh
+```
+
 - Update `VERSION_NAME` (remove `-SNAPSHOT`) in `tor-binary/gradle.properties`
 ```gradle
 VERSION_NAME=<TOR_VERSION>
