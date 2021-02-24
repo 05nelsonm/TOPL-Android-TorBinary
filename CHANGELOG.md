@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 0.4.5.6 (2021-02-24)
+ - Tor Binaries for v0.4.5.6
+
 ## Version 0.4.5.4 (2021-01-28)
  - Adds reproducably built work flow using The Tor Project's tor-browser-build 
  and removes direct reliance on Guardian Project's tor-android project.
