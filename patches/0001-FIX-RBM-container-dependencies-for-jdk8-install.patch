@@ -1,0 +1,25 @@
+From ce3241935a9e8a02cf2f526ab3911f2f15d6f66d Mon Sep 17 00:00:00 2001
+From: Matthew Nelson <developer@matthewnelson.io>
+Date: Thu, 6 May 2021 04:00:37 -0400
+Subject: [PATCH] FIX: RBM container dependencies for jdk8 install
+
+---
+ rbm.conf | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/rbm.conf b/rbm.conf
+index ec38441..6871027 100644
+--- a/rbm.conf
++++ b/rbm.conf
+@@ -346,7 +346,7 @@ targets:
+           SNAPSHOT_VERSION=20191201T212855Z
+           OPENJDK_URL=https://snapshot.debian.org/archive/debian/$SNAPSHOT_VERSION/pool/main/o/openjdk-8
+           JDK_VERSION=8u232-b09-1~deb9u1_amd64
+-          apt-get install -y -q wget ca-certificates-java
++          apt-get install -y -q wget ca-certificates-java libx11-6 libxext6 libxi6 libxrender1 libxtst6
+           wget $OPENJDK_URL/openjdk-8-jdk-headless_$JDK_VERSION.deb
+           wget $OPENJDK_URL/openjdk-8-jre-headless_$JDK_VERSION.deb
+           echo 92b4f8fb77d793a86e0b03b3b0750592b40a26a5d75956d10dd984a7b3aad4c9 openjdk-8-jdk-headless_$JDK_VERSION.deb | sha256sum -c
+-- 
+2.27.0
+
