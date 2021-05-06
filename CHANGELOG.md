@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 0.4.6.2-alpha (2021-05-06)
+ - Add git patch file to fix RBM container dependencies needed for OpenJdk8 and update build script
+ - Tor Binaries for v0.4.6.2-alpha
+
 ## Version 0.4.5.6 (2021-02-24)
  - Tor Binaries for v0.4.5.6
 
