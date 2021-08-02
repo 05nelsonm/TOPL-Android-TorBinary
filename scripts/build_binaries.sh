@@ -32,8 +32,6 @@ if checkDirExists "$TOR_OUT_DIR"; then
   rm -rf "$TOR_OUT_DIR"
 fi
 
-git am '../../patches/0001-FIX-RBM-container-dependencies-for-jdk8-install.patch'
-
 ./rbm/rbm build tor --target release --target torbrowser-android-armv7
 ./rbm/rbm build tor --target release --target torbrowser-android-aarch64
 ./rbm/rbm build tor --target release --target torbrowser-android-x86
