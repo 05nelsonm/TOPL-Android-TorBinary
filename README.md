@@ -1,6 +1,12 @@
 # TOPL-Android-TorBinary
 Tor Binary build for Android
 
+# DEPRICATION NOTICE
+Support for this project will be sunset by July 1st, 2022 in favor of a successor
+library [kmp-tor-binary](https://github.com/05nelsonm/kmp-tor-binary).
+
+## Get Started
+
 Installs the Tor executable file in your Android Application's
 native library directory (`/data/app/...`) with the file name `libTor.so`.  
 
